@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: files_microservice
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/files_microservice
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+  security:
+    user:
+      name: user
+      password: user
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8079/realms/diplom
+        registration:
+            keycloak:
+              client-id: files_microservice
+              client-secret: ziSExybAK082RLkrnxUpeMIGdsl588yg
+              scope:
+                - openid
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: test-group-id
+  elasticsearch:
+    uris: http://localhost:9200
+
+minio:
+  url: http://127.0.0.1:9000
+  credentials:
+    access-key: minio
+    secret-key: minio
+  bucket-name: files-bucket
+
+grpc:
+  server:
+    port: 9090
+
+#server:
+#  ssl:
+#    enabled: true
+#    certificate: file:/Users/rostislavorlov/localhost.crt
+#    certificate-private-key: file:/Users/rostislavorlov/localhost.key

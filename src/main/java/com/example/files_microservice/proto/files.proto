@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "com.example.files_microservice.proto";
+
+message FileUploadRequest {
+  bytes fileBytes = 1;
+  string fileName = 2;
+  string contentType = 3;
+}
+
+message FileUploadResponse {
+  string id = 1;
+  string minioId = 2;
+  string name = 3;
+}
+
+service FileService {
+  rpc UploadFile(FileUploadRequest) returns (FileUploadResponse);
+}
