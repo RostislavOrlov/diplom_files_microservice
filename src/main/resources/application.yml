@@ -28,7 +28,7 @@ spring:
         registration:
             keycloak:
               client-id: files_microservice
-              client-secret: ziSExybAK082RLkrnxUpeMIGdsl588yg
+              client-secret: <client-secret>
               scope:
                 - openid
 
