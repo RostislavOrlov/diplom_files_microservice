@@ -1,5 +1,7 @@
 package com.example.files_microservice.config.kafka;
 
+import com.example.files_microservice.kafka.KafkaMessageAuthenticator;
+import com.example.files_microservice.kafka.KafkaMessagesFilterStrategy;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +40,7 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+        factory.setRecordFilterStrategy(new KafkaMessagesFilterStrategy(new KafkaMessageAuthenticator()));
         return factory;
     }
 

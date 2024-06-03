@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,12 +54,19 @@ public class FileController {
                 .body(fileService.uploadFile(request));
     }
 
-    @KafkaListener(topics = "files.download_image", groupId = "test-group-id") //разобраться с groupId (можно только константы)
     @PostMapping(path = "/download-file", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<FileDownloadResponse> downloadFile(FileDownloadRequest request) {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @KafkaListener(topics = "files.download_image", groupId = "test-group-id") //разобраться с groupId (можно только константы)
+    public void downloadFileKafkaListener(
+            @Payload String message,
+            @Header(KafkaHeaders.RECEIVED_PARTITION) String partition
+    ) {
+        //...
     }
 }

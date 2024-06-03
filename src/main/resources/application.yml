@@ -1,6 +1,11 @@
 spring:
   application:
     name: files_microservice
+#  config:
+#    import: 'optional:configserver:'
+#  cloud:
+#    config:
+#      uri: http://localhost:8888
   jpa:
     database: POSTGRESQL
     show-sql: true
@@ -26,12 +31,22 @@ spring:
               client-secret: ziSExybAK082RLkrnxUpeMIGdsl588yg
               scope:
                 - openid
+
+  rabbitmq:
+    host: localhost
+    port: 15671
+    client-login: "rabbit"
+    client-passcode: "rabbit"
+    system-login: "rabbit"
+    system-passcode: "rabbit"
+
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: test-group-id
   elasticsearch:
     uris: http://localhost:9200
+
 
 minio:
   url: http://127.0.0.1:9000
@@ -49,3 +64,10 @@ grpc:
 #    enabled: true
 #    certificate: file:/Users/rostislavorlov/localhost.crt
 #    certificate-private-key: file:/Users/rostislavorlov/localhost.key
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#  instance:
+#    prefer-ip-address: true
